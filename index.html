@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>JAI MATA DI - Stationery & Gift and Sports</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff5eb;
+            color: #1a1a2e;
+            padding-bottom: 70px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #d32f2f, #b71c1c);
+            padding: 20px 16px 16px 16px;
+            color: white;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        .header h1 small {
+            font-size: 10px;
+            opacity: 0.9;
+            display: block;
+        }
+
+        /* Bottom Nav - Hidden by default */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: none;
+            justify-content: space-around;
+            padding: 12px 0 18px 0;
+            border-top: 1px solid #eee;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            z-index: 100;
+        }
+
+        .bottom-nav.show {
+            display: flex;
+        }
+
+        .nav-item {
+            text-align: center;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: 0.2s;
+        }
+
+        .nav-item.active {
+            opacity: 1;
+            color: #d32f2f;
+        }
+
+        .nav-icon {
+            font-size: 22px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+            padding-bottom: 20px;
+        }
+
+        .page.active-page {
+            display: block;
+        }
+
+        /* Welcome / Login Page */
+        .welcome-card {
+            background: white;
+            margin: 24px 16px;
+            padding: 24px;
+            border-radius: 28px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .welcome-card h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .input-group {
+            margin: 16px 0;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 16px;
+            margin-top: 6px;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 30px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid #d32f2f;
+            color: #d32f2f;
+            padding: 12px;
+            border-radius: 30px;
+            width: 100%;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* OTP Section */
+        .otp-box {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .otp-digit {
+            width: 50px;
+            height: 55px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+        }
+
+        /* Special Offers */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px;
+            font-weight: bold;
+        }
+
+        .offer-banner {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: white;
+            padding: 16px;
+            margin: 0 16px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 12px;
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .category-tab {
+            padding: 8px 20px;
+            border-radius: 30px;
+            background: #f0f0f0;
+            cursor: pointer;
+        }
+
+        .category-tab.active {
+            background: #d32f2f;
+            color: white;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            padding: 16px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
+
+        .product-img {
+            height: 120px;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .product-info {
+            padding: 12px;
+        }
+
+        .product-title {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .product-price {
+            color: #d32f2f;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+
+        /* Browse Categories */
+        .browse-item {
+            background: white;
+            margin: 12px 16px;
+            padding: 16px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        /* Wishlist Empty */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        /* My Account */
+        .profile-header {
+            background: white;
+            margin: 16px;
+            padding: 20px;
+            border-radius: 24px;
+            text-align: center;
+        }
+
+        .menu-item {
+            background: white;
+            margin: 8px 16px;
+            padding: 16px 20px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .logout-item {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 28px;
+            padding: 24px;
+            width: 90%;
+            max-width: 320px;
+        }
+
+        .contact-option {
+            padding: 14px;
+            background: #f5f5f5;
+            margin: 8px 0;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 12px;
+            border-radius: 30px;
+            text-align: center;
+            z-index: 300;
+            display: none;
+        }
+
+        /* Hide main content initially */
+        .main-content {
+            display: none;
+        }
+
+        .main-content.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="toast" id="toastMsg">Message</div>
+
+<!-- Header -->
+<div class="header">
+    <h1># JAI MATA DI<br><small>Stationery & Gift and Sports</small></h1>
+</div>
+
+<!-- Login Page (Always visible first) -->
+<div id="loginPage" class="page active-page">
+    <div class="welcome-card">
+        <h2>welcome</h2>
+        <p>Enter your mobile number and Gmail to start shopping.</p>
+        
+        <div class="input-group">
+            <label>Mobile Number</label>
+            <input type="tel" id="loginMobile" placeholder="Enter mobile number" value="">
+        </div>
+        <div class="input-group">
+            <label>Gmail Address</label>
+            <input type="email" id="loginGmail" placeholder="Enter Gmail" value="">
+        </div>
+        
+        <button class="btn-primary" onclick="sendOTP()">Continue ></button>
+    </div>
+    
+    <div class="welcome-card" id="otpSection" style="display:none;">
+        <h3>Enter 6-digit OTP</h3>
+        <div class="demo-badge" style="background:#f0f0f0; color:#333; padding:8px; border-radius:12px; font-size:12px; margin:10px 0;">SIMULATED SMS<br>Your OTP is: 155275</div>
+        <p style="font-size:12px; margin:10px 0;">OTP sent to <span id="otpMobile"></span> and your Gmail</p>
+        <div class="otp-box">
+            <input type="text" maxlength="1" class="otp-digit" id="otp1" oninput="moveNext(this, 'otp2')">
+            <input type="text" maxlength="1" class="otp-digit" id="otp2" oninput="moveNext(this, 'otp3')">
+            <input type="text" maxlength="1" class="otp-digit" id="otp3" oninput="moveNext(this, 'otp4')">
+            <input type="text" maxlength="1" class="otp-digit" id="otp4" oninput="moveNext(this, 'otp5')">
+            <input type="text" maxlength="1" class="otp-digit" id="otp5" oninput="moveNext(this, 'otp6')">
+            <input type="text" maxlength="1" class="otp-digit" id="otp6">
+        </div>
+        <button class="btn-primary" onclick="verifyOTP()">Verify & Start</button>
+    </div>
+</div>
+
+<!-- Main App Content (Hidden until login) -->
+<div class="main-content" id="mainContent">
+    <!-- Page 1: Home/Shop -->
+    <div id="homePage" class="page">
+        <div class="offer-banner">
+            🎉 Special Offers<br>Get 20% off on all stationery and gift items today!
+        </div>
+        
+        <div class="category-tabs">
+            <div class="category-tab active" data-cat="all" onclick="filterProducts('all')">All</div>
+            <div class="category-tab" data-cat="stationery" onclick="filterProducts('stationery')">Stationery</div>
+            <div class="category-tab" data-cat="gift" onclick="filterProducts('gift')">Gift</div>
+            <div class="category-tab" data-cat="sports" onclick="filterProducts('sports')">Sports</div>
+        </div>
+        
+        <div class="section-header">
+            <span>📦 Recommended for You</span>
+            <span>BASED ON YOUR INTERESTS</span>
+        </div>
+        
+        <div class="product-grid" id="productGrid"></div>
+    </div>
+
+    <!-- Page 2: Browse Categories -->
+    <div id="browsePage" class="page">
+        <div class="browse-item" onclick="viewCategory('stationery')">
+            <span>📚 Stationery</span>
+            <span>10 Items →</span>
+        </div>
+        <div class="browse-item" onclick="viewCategory('gift')">
+            <span>🎁 Gift</span>
+            <span>3 Items →</span>
+        </div>
+        <div class="browse-item" onclick="viewCategory('sports')">
+            <span>⚽ Sports</span>
+            <span>5 Items →</span>
+        </div>
+        <div class="browse-item" onclick="viewCategory('create')">
+            <span>✨ Create</span>
+            <span>Custom →</span>
+        </div>
+    </div>
+
+    <!-- Page 3: Wishlist -->
+    <div id="wishlistPage" class="page">
+        <div class="empty-state">
+            <div class="empty-icon">❤️</div>
+            <h3>My Wishlist</h3>
+            <p>0 Items</p>
+            <p style="margin-top:10px;">Your wishlist is empty</p>
+            <button class="btn-outline" style="margin-top:20px;" onclick="switchPage('home')">Explore Products</button>
+        </div>
+    </div>
+
+    <!-- Page 4: Shopping Bag -->
+    <div id="bagPage" class="page">
+        <div class="empty-state">
+            <div class="empty-icon">🛍️</div>
+            <h3>Shopping Bag</h3>
+            <p>Your bag is empty</p>
+            <p style="margin-top:5px;">Looks like you haven't added anything to your bag yet.</p>
+            <button class="btn-outline" style="margin-top:20px;" onclick="switchPage('home')">Start Shopping</button>
+        </div>
+    </div>
+
+    <!-- Page 5: My Account -->
+    <div id="accountPage" class="page">
+        <div class="profile-header">
+            <div style="font-size:48px;">👤</div>
+            <div id="accName" style="font-weight:bold;"></div>
+            <div id="accMobile"></div>
+        </div>
+        
+        <div class="menu-item" onclick="goToOrders()">
+            <span>📋 Order</span>
+            <span>→</span>
+        </div>
+        <div class="menu-item" onclick="openChatModal()">
+            <span>💬 Chat with us</span>
+            <span>→</span>
+        </div>
+        <div class="menu-item" onclick="openThemeSelector()">
+            <span>🎨 App Theme</span>
+            <span>→</span>
+        </div>
+        <div class="menu-item" onclick="openContactModal()">
+            <span>📞 Contact us</span>
+            <span>→</span>
+        </div>
+        <div class="menu-item logout-item" onclick="logout()">
+            <span>🚪 Logout</span>
+            <span>→</span>
+        </div>
+    </div>
+
+    <!-- Page 6: Orders -->
+    <div id="ordersPage" class="page">
+        <div class="section-header">
+            <span>← My Orders</span>
+        </div>
+        <div class="empty-state">
+            <div class="empty-icon">📦</div>
+            <h3>No Order</h3>
+            <button class="btn-outline" style="margin-top:20px;" onclick="simulateOrder()">Simulate Order Placement</button>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Navigation -->
+<div class="bottom-nav" id="bottomNav">
+    <div class="nav-item" onclick="switchPage('home')">
+        <div class="nav-icon">🏠</div>
+        <div class="nav-label">Home</div>
+    </div>
+    <div class="nav-item" onclick="switchPage('browse')">
+        <div class="nav-icon">📂</div>
+        <div class="nav-label">Browse</div>
+    </div>
+    <div class="nav-item" onclick="switchPage('wishlist')">
+        <div class="nav-icon">❤️</div>
+        <div class="nav-label">Wishlist</div>
+    </div>
+    <div class="nav-item" onclick="switchPage('bag')">
+        <div class="nav-icon">🛒</div>
+        <div class="nav-label">Bag</div>
+    </div>
+    <div class="nav-item" onclick="switchPage('account')">
+        <div class="nav-icon">👤</div>
+        <div class="nav-label">Account</div>
+    </div>
+</div>
+
+<!-- Modal for Chat/Contact -->
+<div id="actionModal" class="modal">
+    <div class="modal-content">
+        <h3 id="modalTitle">Chat with us</h3>
+        <div id="modalBody"></div>
+        <button class="btn-outline" style="margin-top:10px;" onclick="closeModal()">Close</button>
+    </div>
+</div>
+
+<script>
+    // Products Data
+    const products = {
+        stationery: [
+            { id: 1, name: "Notebook", price: "₹49", icon: "📓", category: "stationery" },
+            { id: 2, name: "Pen Set", price: "₹99", icon: "✒️", category: "stationery" },
+            { id: 3, name: "Marker", price: "₹29", icon: "🖍️", category: "stationery" },
+            { id: 4, name: "Sketch Pens", price: "₹199", icon: "🎨", category: "stationery" },
+            { id: 5, name: "Geometry Box", price: "₹89", icon: "📐", category: "stationery" }
+        ],
+        gift: [
+            { id: 6, name: "Gift Wrap", price: "₹49", icon: "🎁", category: "gift" },
+            { id: 7, name: "Teddy Bear", price: "₹299", icon: "🧸", category: "gift" },
+            { id: 8, name: "Birthday Card", price: "₹19", icon: "💝", category: "gift" }
+        ],
+        sports: [
+            { id: 9, name: "Cricket Bat", price: "₹499", icon: "🏏", category: "sports" },
+            { id: 10, name: "Football", price: "₹399", icon: "⚽", category: "sports" },
+            { id: 11, name: "Badminton Racket", price: "₹299", icon: "🏸", category: "sports" },
+            { id: 12, name: "Skipping Rope", price: "₹99", icon: "🪢", category: "sports" }
+        ]
+    };
+
+    let allProducts = [...products.stationery, ...products.gift, ...products.sports];
+    let currentFilter = "all";
+    let currentUser = {
+        mobile: "",
+        gmail: "",
+        isLoggedIn: false
+    };
+
+    function showToast(msg) {
+        let toast = document.getElementById('toastMsg');
+        toast.innerText = msg;
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 2000);
+    }
+
+    function sendOTP() {
+        let mobile = document.getElementById('loginMobile').value;
+        let gmail = document.getElementById('loginGmail').value;
+        if(!mobile || !gmail) {
+            showToast("Please enter mobile and gmail");
+            return;
+        }
+        if(mobile.length < 10) {
+            showToast("Please enter valid 10-digit mobile number");
+            return;
+        }
+        if(!gmail.includes('@')) {
+            showToast("Please enter valid email");
+            return;
+        }
+        currentUser.mobile = mobile;
+        currentUser.gmail = gmail;
+        document.getElementById('otpMobile').innerText = mobile;
+        document.querySelector('.welcome-card').style.display = 'none';
+        document.getElementById('otpSection').style.display = 'block';
+    }
+
+    function moveNext(current, nextId) {
+        if(current.value.length === 1) {
+            if(nextId) document.getElementById(nextId).focus();
+        }
+    }
+
+    function verifyOTP() {
+        let otp = document.getElementById('otp1').value + document.getElementById('otp2').value + 
+                  document.getElementById('otp3').value + document.getElementById('otp4').value + 
+                  document.getElementById('otp5').value + document.getElementById('otp6').value;
+        if(otp === "155275") {
+            currentUser.isLoggedIn = true;
+            showToast("Login Successful!");
+            document.getElementById('accName').innerText = currentUser.gmail;
+            document.getElementById('accMobile').innerText = currentUser.mobile;
+            
+            // Hide login page, show main content and bottom nav
+            document.getElementById('loginPage').classList.remove('active-page');
+            document.getElementById('mainContent').classList.add('show');
+            document.getElementById('bottomNav').classList.add('show');
+            
+            // Show home page by default
+            switchPage('home');
+            renderProducts();
+        } else {
+            showToast("Invalid OTP! Use 155275");
+        }
+    }
+
+    function renderProducts() {
+        let filtered = currentFilter === "all" ? allProducts : allProducts.filter(p => p.category === currentFilter);
+        let grid = document.getElementById('productGrid');
+        if(grid) {
+            grid.innerHTML = filtered.map(p => `
+                <div class="product-card" onclick="addToBag('${p.name}', '${p.price}')">
+                    <div class="product-img">${p.icon}</div>
+                    <div class="product-info">
+                        <div class="product-title">${p.name}</div>
+                        <div class="product-price">${p.price}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+
+    function filterProducts(cat) {
+        currentFilter = cat;
+        let tabs = document.querySelectorAll('.category-tab');
+        tabs.forEach(tab => tab.classList.remove('active'));
+        let activeTab = Array.from(tabs).find(tab => tab.getAttribute('data-cat') === cat);
+        if(activeTab) activeTab.classList.add('active');
+        renderProducts();
+    }
+
+    function addToBag(name, price) {
+        showToast(`Added ${name} (${price}) to bag`);
+    }
+
+    function viewCategory(cat) {
+        if(cat === 'create') {
+            showToast("✨ Custom creation feature coming soon!");
+        } else {
+            filterProducts(cat);
+            switchPage('home');
+        }
+    }
+
+    function switchPage(pageName) {
+        // Hide all pages
+        document.querySelectorAll('#mainContent .page').forEach(page => page.classList.remove('active-page'));
+        
+        if(pageName === 'home') document.getElementById('homePage').classList.add('active-page');
+        else if(pageName === 'browse') document.getElementById('browsePage').classList.add('active-page');
+        else if(pageName === 'wishlist') document.getElementById('wishlistPage').classList.add('active-page');
+        else if(pageName === 'bag') document.getElementById('bagPage').classList.add('active-page');
+        else if(pageName === 'account') document.getElementById('accountPage').classList.add('active-page');
+        else if(pageName === 'orders') document.getElementById('ordersPage').classList.add('active-page');
+        
+        // Update bottom nav active state
+        let navItems = document.querySelectorAll('#bottomNav .nav-item');
+        navItems.forEach(nav => nav.classList.remove('active'));
+        if(pageName === 'home') navItems[0].classList.add('active');
+        else if(pageName === 'browse') navItems[1].classList.add('active');
+        else if(pageName === 'wishlist') navItems[2].classList.add('active');
+        else if(pageName === 'bag') navItems[3].classList.add('active');
+        else if(pageName === 'account') navItems[4].classList.add('active');
+        
+        if(pageName === 'home') renderProducts();
+    }
+
+    function goToOrders() {
+        switchPage('orders');
+    }
+
+    function simulateOrder() {
+        showToast("✅ Order placed successfully! (Demo)");
+        setTimeout(() => switchPage('home'), 1500);
+    }
+
+    function openChatModal() {
+        let modal = document.getElementById('actionModal');
+        let body = document.getElementById('modalBody');
+        document.getElementById('modalTitle').innerHTML = "💬 Chat with us";
+        body.innerHTML = `
+            <div class="contact-option" onclick="openWhatsApp()">📱 WhatsApp</div>
+            <div class="contact-option" onclick="openTelegram()">✈️ Telegram</div>
+            <div class="contact-option" onclick="openMessage()">💬 Message</div>
+        `;
+        modal.style.display = 'flex';
+    }
+
+    function openWhatsApp() {
+        let modal = document.getElementById('actionModal');
+        document.getElementById('modalTitle').innerHTML = "📱 Select WhatsApp Number";
+        document.getElementById('modalBody').innerHTML = `
+            <div class="contact-option" onclick="chatOnWhatsApp('7870695618')">📞 7870695618 - Support Number 1</div>
+            <div class="contact-option" onclick="chatOnWhatsApp('9905735203')">📞 9905735203 - Support Number 2</div>
+        `;
+    }
+
+    function chatOnWhatsApp(number) {
+        window.open(`https://wa.me/${number}`, '_blank');
+        showToast(`Opening WhatsApp chat with ${number}`);
+    }
+
+    function openTelegram() {
+        showToast("Telegram: @jaimatadishop");
+    }
+
+    function openMessage() {
+        showToast("SMS feature coming soon!");
+    }
+
+    function openContactModal() {
+        let modal = document.getElementById('actionModal');
+        let body = document.getElementById('modalBody');
+        document.getElementById('modalTitle').innerHTML = "📞 Contact Us";
+        body.innerHTML = `
+            <div class="contact-option" onclick="callSupport('7870695618')">📞 PRIMARY SUPPORT - 7870695618</div>
+            <div class="contact-option" onclick="callSupport('9905735203')">📞 SECONDARY SUPPORT - 9905735203</div>
+        `;
+        modal.style.display = 'flex';
+    }
+
+    function callSupport(number) {
+        window.location.href = `tel:${number}`;
+        showToast(`Calling ${number}...`);
+    }
+
+    function openThemeSelector() {
+        showToast("Theme selector coming soon! (Light/Dark)");
+    }
+
+    function logout() {
+        currentUser.isLoggedIn = false;
+        currentUser.mobile = "";
+        currentUser.gmail = "";
+        
+        // Reset login form
+        document.getElementById('otpSection').style.display = 'none';
+        document.querySelector('.welcome-card').style.display = 'block';
+        document.getElementById('loginMobile').value = '';
+        document.getElementById('loginGmail').value = '';
+        document.querySelectorAll('.otp-digit').forEach(inp => inp.value = '');
+        
+        // Hide main content and bottom nav
+        document.getElementById('mainContent').classList.remove('show');
+        document.getElementById('bottomNav').classList.remove('show');
+        
+        // Show login page
+        document.getElementById('loginPage').classList.add('active-page');
+        
+        showToast("Logged out successfully!");
+    }
+
+    function closeModal() {
+        document.getElementById('actionModal').style.display = 'none';
+    }
+</script>
+</body>
+</html>
